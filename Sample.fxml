@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <top>
@@ -12,17 +27,304 @@
         <tabs>
           <Tab text="Student Profiles">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane prefHeight="372.0" prefWidth="400.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.4" minWidth="10.0" prefWidth="400.4" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.79998779296875" minWidth="0.39999999999997726" prefWidth="0.39999999999997726" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <HBox prefHeight="18.0" prefWidth="400.0" spacing="10.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="Name:">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField promptText="Name">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <GridPane GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Major:">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <RadioButton mnemonicParsing="false" text="CS" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="BA" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="EE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <RadioButton mnemonicParsing="false" text="ME" GridPane.rowIndex="2" />
+                                    <RadioButton mnemonicParsing="false" text="IT" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Status:">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <RadioButton mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="NonResident" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="Tristate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="International" GridPane.rowIndex="3" />
+                                    <RadioButton mnemonicParsing="false" text="New York" GridPane.rowIndex="2" />
+                                    <RadioButton mnemonicParsing="false" text="Connecticut" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <RadioButton mnemonicParsing="false" text="Study Abroad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label text="Number of Credits:">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField promptText="Integer ">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="60.0" GridPane.rowIndex="4">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Student">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" text="Remove Student">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" text="Edit Student">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </GridPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Payments/Financial Aid">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane prefHeight="371.0" prefWidth="400.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Student Name">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label text="Payment Amount  $">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField>
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label text="Payment Date">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </DatePicker>
+                                    <Button mnemonicParsing="false" text="Pay">
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                 <children>
+                                    <Label text="Financial Aid Amount  $">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField>
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" text="Set Amount">
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
+                              <GridPane GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Major">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <RadioButton mnemonicParsing="false" text="IT" GridPane.columnIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="CS" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="BA" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" text="EE" GridPane.rowIndex="2" />
+                                    <RadioButton mnemonicParsing="false" text="ME" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </GridPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
             <Tab text="Process Tuition">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="-1.0" layoutY="-2.0" prefHeight="120.0" prefWidth="393.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="279.3999938964844" minHeight="10.0" prefHeight="72.80000381469726" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="298.6000061035156" minHeight="10.0" prefHeight="47.999996185302734" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <MenuBar>
+                                <menus>
+                                  <Menu mnemonicParsing="false" text="Tuition">
+                                    <items>
+                                      <MenuItem mnemonicParsing="false" text="Close" />
+                                    </items>
+                                  </Menu>
+                                  <Menu mnemonicParsing="false" text="Print">
+                                    <items>
+                                      <MenuItem mnemonicParsing="false" text="Delete" />
+                                    </items>
+                                  </Menu>
+                                  <Menu mnemonicParsing="false" text="Help">
+                                    <items>
+                                      <MenuItem mnemonicParsing="false" text="About" />
+                                    </items>
+                                  </Menu>
+                                </menus>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </MenuBar>
+                              <SplitMenuButton mnemonicParsing="false" text="Major?" GridPane.rowIndex="1">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="CS" />
+                                    <MenuItem mnemonicParsing="false" text="ME" />
+                                    <MenuItem mnemonicParsing="false" text="EE" />
+                                  <MenuItem mnemonicParsing="false" text="BA" />
+                                    <MenuItem mnemonicParsing="false" text="IT" />
+                                </items>
+                              </SplitMenuButton>
+                           </children>
+                        </GridPane>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
