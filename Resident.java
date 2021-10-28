@@ -1,11 +1,11 @@
 package application;
-
 /**
 This class defines the type Resident, which is an extenstion of Student, with all of its attributes and methods
 @author Emily Nelson, Cristofer Gomez-Martinez
 */
 public class Resident extends Student {
-	
+
+
 	/**
 	Constructor for a Resident student
 	Creates a type Student for this student
@@ -54,11 +54,10 @@ public class Resident extends Student {
 			this.setTuitionDue(tuition);
 			this.originalTuition = tuition;
 		} 
-		//original tuition is 20000. fa was applied and now it's 19000 so tuitionDue was set to 19000. keep tuitionDue amount
+		
 		if (this.getDidFinancialAid() != 0) {
 			this.setTuitionDue(this.getTuitionDue());
 		}
-		//else, tuition  has already been calculated so no need to do anything
 		
 	}
 	
@@ -69,8 +68,10 @@ public class Resident extends Student {
 	*/
 	@Override
 	public String toString() {
-	    String str = super.toString();
-	    return str + "Resident";
+		String str = super.toString();
+		return str + "Resident";
 	}
+	
+
 
 }
