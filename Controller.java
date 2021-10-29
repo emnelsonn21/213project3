@@ -10,6 +10,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
+/**
+This class contains the methods that organize the user inputs
+@author Emily Nelson, Cristofer Gomez-Martinez
+*/
 public class Controller {
 
 	public static final int MINFULLTIME = 12; 
@@ -19,6 +23,10 @@ public class Controller {
 
 	Roster roster = new Roster();
 	
+	/**
+	 Creates roster list to which students will be added, removed, edited, etc.
+	 @author Emily Nelson
+	 */
 	public void makeRoster() {
 		Student[] newRoster = new Student[4];
 		roster.setStudents(newRoster);
@@ -52,6 +60,9 @@ public class Controller {
 	
 	@FXML
 	private TextField student_name;
+	
+	@FXML
+	private ToggleGroup group_major;
 	
 	@FXML
 	private RadioButton rbBA;
@@ -143,6 +154,11 @@ public class Controller {
 	
 	private boolean firstTime = true;
 	
+	/**
+	 *Adds student to roster
+	 * @param event
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void add(ActionEvent event) {
 		if (firstTime) {
@@ -195,6 +211,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Removes student from roster
+	 * @param event
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void remove(ActionEvent event) {
 		Profile profile = makeNewProfileTab1();
@@ -214,6 +235,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Updates International student to be study abroad
+	 * @param event
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void updateInternational(ActionEvent event) {
 		Profile profile = makeNewProfileTab1();
@@ -233,6 +259,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Method for a student to make a tuition payment
+	 * @param event
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void pay(ActionEvent event) {
 		
@@ -270,6 +301,11 @@ public class Controller {
 
 	}
 	
+	/**
+	 * method for giving a student a one-time financial aid award
+	 * @param event
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void updateFinancialAid(ActionEvent event) {
 		Profile profile = makeNewProfileTab2();
@@ -298,12 +334,22 @@ public class Controller {
 		return;
 	}
 	
+	/**
+	 * Calculates tuitions of all students
+	 * @param e
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void calculateAllTuitions(ActionEvent e) {
 		roster.getAllTuitions();
 		textArea3.appendText("Calculation Completed");
 	}
 	
+	/**
+	 * Prints all students
+	 * @param e
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void print(ActionEvent e) {
 		textArea3.clear();
@@ -318,6 +364,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Prints all students in alphabetical order by name
+	 * @param e
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void printByName(ActionEvent e) {
 		textArea3.clear();
@@ -332,6 +383,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Prints all students in order of date of last payment
+	 * @param e
+	 * @author Emily Nelson
+	 */
 	@FXML
 	void printByDate(ActionEvent e) {
 		textArea3.clear();
@@ -346,7 +402,11 @@ public class Controller {
 		}
 	}
 	
-
+	/**
+	Makes new instance of Resident where all attributes are filled
+	@return instance of Resident
+	@author Emily Nelson
+	*/
 	@FXML
 	public Resident makeNewResident() {
 		Profile profile = new Profile();
@@ -404,6 +464,11 @@ public class Controller {
 		
 	}
 	
+	/**
+	Makes new instance of Nonresident where all attributes are filled
+	@return instance of Nonresident
+	@author Emily Nelson
+	*/
 	@FXML
 	public Nonresident makeNewNonresident() {
 		Profile profile = new Profile();
@@ -462,6 +527,11 @@ public class Controller {
 		
 	}
 	
+	/**
+	Makes new instance of Tristate where all attributes are filled
+	@return instance of Tristate
+	@author Emily Nelson
+	*/
 	@FXML
 	public Tristate makeNewTristate() {
 		Profile profile = new Profile();
@@ -529,6 +599,11 @@ public class Controller {
 		
 	}
 	
+	/**
+	Makes new instance of International where all attributes are filled
+	@return instance of International
+	@author Emily Nelson
+	*/
 	@FXML 
 	public International makeNewInternational() {
 		Profile profile = new Profile();
@@ -594,6 +669,13 @@ public class Controller {
 		return newInternational;
 	}
 	
+	/**
+	 * Attempts to add student and checks if addition to roster was successful
+	 * @param student
+	 * @param worked
+	 * @param roster
+	 * @author Emily Nelson
+	 */
 	public void addStudent(Student student, boolean worked, Roster roster) {
 			try {
 				worked = roster.add(student);
@@ -609,6 +691,11 @@ public class Controller {
 			 }
 	}
 	
+	/**
+	Makes new instance of Profile where all attributes are filled
+	@return instance of Profile
+	@author Emily Nelson
+	*/
 	public Profile makeNewProfileTab1() {
 		Profile profile = new Profile();
 		String name= null;
@@ -644,6 +731,12 @@ public class Controller {
 		
 		return profile;
 	}
+	
+	/**
+	Makes new instance of Profile where all attributes are filled
+	@return instance of Profile
+	@author Emily Nelson
+	*/
 	public Profile makeNewProfileTab2() {
 		Profile profile = new Profile();
 		String name= null;
@@ -680,6 +773,12 @@ public class Controller {
 		return profile;
 	}
 	
+	/**
+	 * 
+	 * @param strDate a String to be made into the proper format for Date class
+	 * @return String in proper format to be made into Date
+	 * @author Emily Nelson
+	 */
 	public String makeDateFormat(String strDate) {
 		String year = null;
 		String month = null;
@@ -705,6 +804,11 @@ public class Controller {
 		return month + "/" + day + "/" + year;
 	}
 	
+	/**
+	 * Checks if the number of credits entered is valid
+	 * @param credits Number of credits
+	 * @return true if valid, false if not
+	 */
 	public boolean checkValidCredits(int credits) {
 		
 		if (credits < 3) {
@@ -725,7 +829,10 @@ public class Controller {
 		return true;
 	}
 	
-	
+	/**
+	 * Method to disable irrelevant buttons when Resident is selected
+	 * @author Emily Nelson
+	 */
 	@FXML
 	public void resDisableOtherButtons() {
 		rbTristate.setDisable(true);
@@ -734,6 +841,10 @@ public class Controller {
 		rbStudyAbroad.setDisable(true);
 	}
 	
+	/**
+	 * Method to disable irrelevant buttons when Nonresident is selected
+	 * @author Emily Nelson
+	 */
 	@FXML
 	public void nonResDisableOtherButtons() {
 		rbTristate.setDisable(false);
@@ -742,6 +853,10 @@ public class Controller {
 		rbStudyAbroad.setDisable(true);
 	}
 	
+	/**
+	 * Method to disable irrelevant buttons when International is selected
+	 * @author Emily Nelson
+	 */
 	@FXML
 	public void internationalDisableOtherButtons() {
 		rbTristate.setDisable(true);
@@ -750,6 +865,10 @@ public class Controller {
 		rbStudyAbroad.setDisable(false);
 	}
 	
+	/**
+	 * Method to clear all status radio buttons after student is successfully added or removed
+	 * @author Emily Nelson
+	 */
 	@FXML
 	public void clearStatus() {
 		rbResident.setSelected(false);
@@ -767,6 +886,10 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Method to clear all major radio buttons after student is successfully added or removed
+	 * @author Emily Nelson
+	 */
 	public void clearMajor() {
 		rbCS.setSelected(false);
 		rbIT.setSelected(false);
