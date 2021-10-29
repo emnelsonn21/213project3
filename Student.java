@@ -32,16 +32,7 @@ public class Student {
 	public Student(Profile profile) {
 		this.profile = profile;
 	}
-	
-	//constructor attempt 1
-	public Student(Profile profile, boolean isFullTime, int creditHours) {
-		this.profile = profile;
-		this.isFullTime = isFullTime;
-		this.creditHours = creditHours;
-	}
-	
-	
-	//constructor attempt 2
+		
 	/**
 	Constructor for a Student
 	@param profile the profile to set 
@@ -50,6 +41,7 @@ public class Student {
 	@param tuitionDue the tuition due to set
 	@author Emily Nelson
 	*/
+	
 	public Student(Profile profile, boolean isFullTime, int creditHours, double tuitionDue) {
 		this.profile = profile;
 		this.isFullTime = isFullTime;
@@ -61,10 +53,9 @@ public class Student {
 		
 	}
 	
-	//NEED TO FIX!!!!!!!!!!
 	/**
 	Returns the student in string form
-	@return textual represential of student 
+	@return textual representation of student 
 	@author Cristofer Gomez-Martinez
 	*/
 	@Override
@@ -97,15 +88,6 @@ public class Student {
 	}
 	
 	/**
-	Sets the profile of the student to a new profile
-	@param profile the new profile to set 
-	@author Emily Nelson
-	*/
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-	
-	/**
 	Checks if the student is full-time
 	@return true if student is full-time, false otherwise
 	@author Emily Nelson
@@ -113,6 +95,7 @@ public class Student {
 	public boolean getIsFullTime() {
 		return isFullTime;
 	}
+	
 	
 	/**
 	Sets the student to either full-time or not
@@ -123,6 +106,8 @@ public class Student {
 		this.isFullTime = isFullTime;
 	}
 	
+	
+	
 	/**
 	Returns the credit hours of student
 	@return credit hours of student
@@ -132,14 +117,6 @@ public class Student {
 		return creditHours;
 	}
 	
-	/**
-	Sets the credit hours of the student to new credit hours
-	@param creditHours the new credit hours to set 
-	@author Emily Nelson
-	*/
-	public void setCreditHours(int creditHours) {
-		this.creditHours = creditHours;
-	}
 	
 	/**
 	Returns the tuition due from student
@@ -163,15 +140,19 @@ public class Student {
 		return this.didFinancialAid;
 	}
 	
+	
 	public void setDidFinancialAid(double fa) {
 		this.didFinancialAid = fa;
 	}
+	
 	
 	public Date getDatePaid() {
 		return datePaid;
 	}
 	
+	
 	public void setDatePaid(Date date) {
 		this.datePaid = date;
 	}
+	
 }
