@@ -40,7 +40,6 @@ public class Roster {
 	*/
 	public void setStudents(Student[] newStudents) {
 		this.roster = newStudents;
-		System.out.println("hi " + roster.length );
 	}
 	
 	/**
@@ -118,32 +117,38 @@ public class Roster {
 	Displays the students in the Student array without specifying the order
 	@author Cristofer Gomez-Martinez
 	*/
-	public void  print() {
+	public String[] print() {
+		String[] students = new String[size + 2];
 		if (roster[0] == null) {
-			System.out.println("Student roster is empty!");
-			return;
+			students[0] = "Student roster is empty! \n";
+			return students;
+			
 		}
 		
-		System.out.println("* list of students in the roster  *");
-		for (int i = 0; i < size; i++) {
-			System.out.println(roster[i].toString());
+		students[0] = "* list of students **";
+		for (int i = 1; i < size + 1; i++) {
+			students[i] = roster[i-1].toString();
 		}
 		
-		System.out.println("* end of roster **");
+		students[size + 1] = "* end of roster **";
+		
+		return students;
 		
 	}
 	/**
 	Displays the students in the Student array sorted by student names
 	@author Cristofer Gomez-Martinez
 	*/
-	public void printByName() {
+	public String[] printByName() {
+		String[] students = new String[size + 2];
 		   if (roster[0] == null) {
-			   System.out.println("Student roster is empty!");
+			   students[0] = "Student roster is empty! \n";
+			   return students;
 	    	}
 		   
 		   else {
 
-	     	   System.out.println("* list of students ordered by name **");
+	     	   students[0] = "* list of students ordered by name **";
 	     	   
 	     	   Student[] sortedRoster = new Student[size];
 	     	   
@@ -152,7 +157,7 @@ public class Roster {
 	     	   }
 	     	   
 	     	   //sort
-	     	   for(int i= 0; i < size; i++) {
+	     	   for(int i= 2; i < size; i++) {
 	     		   for(int j = i + 1; j < size; j++) {
 	     			   if((sortedRoster[j].getProfile().getName().compareTo(sortedRoster[i].getProfile().getName())) < 0){
 	     				   Student temp = sortedRoster[i];
@@ -161,12 +166,16 @@ public class Roster {
 	     			   }
 	     		   }
 	     	   }
-	     	   
-	     	   for (int i = 0; i < size; i++) {
-	     		   System.out.println(sortedRoster[i].toString());
-	     	   }
 
-	     	   System.out.println("* end of roster **");
+	     	   for (int i = 1; i < size + 1; i++) {
+	     		   students[i] = sortedRoster[i-1].toString();
+	     	   }
+	     	   
+
+	     	   students[size + 1] = "* end of roster **";
+	     	   
+	     	   return students;
+	     	   
 	     	   }
 		}
 	
@@ -174,13 +183,15 @@ public class Roster {
 	Displays the students who have made payments in the Student array ordered by payment date
 	@author Cristofer Gomez-Martinez
 	*/
-	public void printByPaymentDate() {
-	    if (roster[0] == null) {
-	    	System.out.println("Student roster is empty!");
-     	}
+	public String[] printByPaymentDate() {
+		String[] students = new String[size + 2];
+		   if (roster[0] == null) {
+			   students[0] = "Student roster is empty! \n";
+			   return students;
+	    	}
 	    else {
 
-     	   System.out.println("* list of students made payments ordered by payment date **");
+	    	students[0] = "* list of students ordered by name **";
      	   
      	   //check how many students have made payments
      	   int studentPayments = 0;
@@ -220,12 +231,15 @@ public class Roster {
     		}
     	   }
      	   
-     	   for (int i = 0; i < studentPayments; i++) {
-     		   System.out.println(sortedRoster[i].toString());
-     	   }
+     	  for (int i = 1; i < size + 1; i++) {
+    		   students[i] = sortedRoster[i-1].toString();
+    	   }
+    	   
 
-     	   System.out.println("* end of roster **");
-     	   }
+    	   students[size + 1] = "* end of roster **";
+    	   
+    	   return students;
+	    }
 	}
 	
 	/**
@@ -276,7 +290,7 @@ public class Roster {
 	public International getInternational(Student student) {
 		Student stud = new Student();
 		for (int index = 0; index < size; index++) {
-			if (student.equals(roster[index])) {
+			if (student.getProfile().equals(roster[index].getProfile())) {
 				stud = roster[index];
 				if (stud instanceof International) {
 					International inter = (International) stud;
