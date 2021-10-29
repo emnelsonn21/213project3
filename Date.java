@@ -1,6 +1,8 @@
 package application;
+
 import java.util.Calendar;
 import java.util.StringTokenizer;
+
 
 /**
 This class defines a Date object, assigning it a month/day/year value
@@ -166,10 +168,10 @@ It contains the methods that check if a user-inputted date is valid and that com
 		
 		return 0;
 	}
+		
 	
 	public int getDay() {
-	    return this.day;
+		return this.day;
 	}
-		
 	
 }
