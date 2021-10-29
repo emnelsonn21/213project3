@@ -4,11 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -144,12 +142,12 @@
                                           <Insets top="20.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" text="Remove Student">
+                                    <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#remove" text="Remove Student">
                                        <HBox.margin>
                                           <Insets top="20.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" text="Edit Student">
+                                    <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#updateInternational" text="Edit Student">
                                        <HBox.margin>
                                           <Insets top="20.0" />
                                        </HBox.margin>
@@ -191,7 +189,7 @@
                                           <Insets top="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField>
+                                    <TextField fx:id="payment_student_name" promptText="Name">
                                        <HBox.margin>
                                           <Insets left="10.0" top="10.0" />
                                        </HBox.margin>
@@ -208,7 +206,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField>
+                                    <TextField fx:id="amountPaid">
                                        <HBox.margin>
                                           <Insets top="20.0" />
                                        </HBox.margin>
@@ -225,12 +223,12 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker>
+                                    <DatePicker fx:id="datePicker">
                                        <HBox.margin>
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                     </DatePicker>
-                                    <Button mnemonicParsing="false" text="Pay">
+                                    <Button fx:id="btnPay" mnemonicParsing="false" onAction="#pay" text="Pay">
                                        <HBox.margin>
                                           <Insets left="20.0" top="20.0" />
                                        </HBox.margin>
@@ -247,12 +245,12 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField>
+                                    <TextField fx:id="financialAidAmt">
                                        <HBox.margin>
                                           <Insets top="20.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Button mnemonicParsing="false" text="Set Amount">
+                                    <Button fx:id="btnSetAmt" mnemonicParsing="false" onAction="#updateFinancialAid" text="Set Amount">
                                        <HBox.margin>
                                           <Insets left="20.0" top="20.0" />
                                        </HBox.margin>
@@ -276,13 +274,14 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <RadioButton mnemonicParsing="false" text="IT" GridPane.columnIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="CS" GridPane.rowIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="BA" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="EE" GridPane.rowIndex="2" />
-                                    <RadioButton mnemonicParsing="false" text="ME" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <RadioButton fx:id="rbIT2" mnemonicParsing="false" text="IT" GridPane.columnIndex="1" />
+                                    <RadioButton fx:id="rbCS2" mnemonicParsing="false" text="CS" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="rbBA2" mnemonicParsing="false" text="BA" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="rbEE2" mnemonicParsing="false" text="EE" GridPane.rowIndex="2" />
+                                    <RadioButton fx:id="rbME2" mnemonicParsing="false" text="ME" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
+                              <TextArea fx:id="textArea2" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
@@ -292,46 +291,35 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane layoutX="-1.0" layoutY="-2.0" prefHeight="120.0" prefWidth="393.0">
+                        <GridPane layoutX="-1.0" layoutY="-2.0" prefHeight="372.0" prefWidth="393.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="279.3999938964844" minHeight="10.0" prefHeight="72.80000381469726" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="298.6000061035156" minHeight="10.0" prefHeight="47.999996185302734" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="279.3999938964844" minHeight="10.0" prefHeight="96.99998779296874" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="298.6000061035156" minHeight="10.0" prefHeight="274.20001220703125" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <MenuBar>
-                                <menus>
-                                  <Menu mnemonicParsing="false" text="Tuition">
-                                    <items>
-                                      <MenuItem mnemonicParsing="false" text="Close" />
-                                    </items>
-                                  </Menu>
-                                  <Menu mnemonicParsing="false" text="Print">
-                                    <items>
-                                      <MenuItem mnemonicParsing="false" text="Delete" />
-                                    </items>
-                                  </Menu>
-                                  <Menu mnemonicParsing="false" text="Help">
-                                    <items>
-                                      <MenuItem mnemonicParsing="false" text="About" />
-                                    </items>
-                                  </Menu>
-                                </menus>
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </MenuBar>
-                              <SplitMenuButton mnemonicParsing="false" text="Major?" GridPane.rowIndex="1">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="CS" />
-                                    <MenuItem mnemonicParsing="false" text="ME" />
-                                    <MenuItem mnemonicParsing="false" text="EE" />
-                                  <MenuItem mnemonicParsing="false" text="BA" />
-                                    <MenuItem mnemonicParsing="false" text="IT" />
-                                </items>
-                              </SplitMenuButton>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <MenuButton mnemonicParsing="false" text="Print Options">
+                                      <items>
+                                          <MenuItem fx:id="btnPrint" mnemonicParsing="false" onAction="#print" text="Print" />
+                                          <MenuItem fx:id="btnPrintName" mnemonicParsing="false" onAction="#printByName" text="Print by Name" />
+                                          <MenuItem fx:id="btnPrintDate" mnemonicParsing="false" onAction="#printByDate" text="Print by Date" />
+                                      </items>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </MenuButton>
+                                    <Button mnemonicParsing="false" text="Calculate All Tuitions">
+                                       <HBox.margin>
+                                          <Insets left="90.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TextArea fx:id="textArea3" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
