@@ -1,7 +1,5 @@
 package application;
 
-import java.time.LocalDate;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,9 +24,8 @@ public class Controller {
 		roster.setStudents(newRoster);
 	}
 	
-
-	//makeRoster();
 	
+	//FIRST PAGE
 	@FXML
 	private ToggleGroup status;
 	
@@ -54,6 +51,12 @@ public class Controller {
 	private RadioButton rbStudyAbroad;
 	
 	@FXML
+	private TextField student_name;
+	
+	@FXML
+	private RadioButton rbBA;
+	
+	@FXML
 	private RadioButton rbCS;
 	
 	@FXML
@@ -64,6 +67,26 @@ public class Controller {
 	
 	@FXML
 	private RadioButton rbIT;
+	
+	@FXML
+	private TextField noCredits;
+	
+    @FXML
+    private Button btnAdd;
+	
+	@FXML
+	private Button btnRemove;
+	    
+	@FXML
+	private Button btnEdit;
+	
+	@FXML
+	private TextArea textArea;
+	
+	//SECOND PAGE
+	
+	@FXML
+	private TextField payment_student_name;
 	
 	@FXML
 	private RadioButton rbBA2;
@@ -81,22 +104,24 @@ public class Controller {
 	private RadioButton rbIT2;
 	
 	@FXML
-	private RadioButton rbBA;
+	private TextField amountPaid;
 	
 	@FXML
-	private TextField student_name;
+	private DatePicker datePicker;
 	
     @FXML
     private TextField financialAidAmt;
-	
-	@FXML
-	private TextField payment_student_name;
-	
-	@FXML
-	private TextArea textArea;
-	
+    
+    @FXML
+    private Button btnPay;
+    
+    @FXML
+    private Button btnSetAmt;
+
     @FXML
     private TextArea textArea2;
+    
+    //THIRD PAGE
     
     @FXML
     private MenuItem btnPrint;
@@ -108,31 +133,12 @@ public class Controller {
     private MenuItem btnPrintName; 
     
     @FXML
+    private Button btnCalculate;
+    
+    @FXML
     private TextArea textArea3;
-	
-	@FXML
-	private ToggleGroup group_major;
-	
-	@FXML
-	private TextField noCredits;
-	
-	@FXML
-	private TextField amountPaid;
-	
-	@FXML
-	private DatePicker datePicker;
-	
-    @FXML
-    private Button btnPay;
-    
-    @FXML
-    private Button btnSetAmt;
-    
-    @FXML
-    private Button btnRemove;
-    
-    @FXML
-    private Button btnEdit;
+
+ 
 	
 	
 	private boolean firstTime = true;
@@ -152,7 +158,14 @@ public class Controller {
 					addStudent(newResident, false, roster);
 					didWork = true;
 				}
-			} else if (rbNonResident.isSelected()) {
+			} else if (rbTristate.isSelected()) {
+				Tristate newTristate = makeNewTristate();
+				if (newTristate != null) {
+					addStudent(newTristate, false, roster);
+					didWork = true;
+				}
+			} 
+			else if (rbNonResident.isSelected()) {
 				if (rbTristate.isSelected()) {
 					Tristate newTristate = makeNewTristate();
 					if (newTristate != null) {
@@ -225,6 +238,10 @@ public class Controller {
 		
 		Profile profile = makeNewProfileTab2();
 		Double amtPaid = Double.parseDouble(amountPaid.getText());
+		if (amtPaid < 0) {
+			textArea2.appendText("Payment cannot be negative.");
+			return;
+		}
 		
 		String strDate = String.valueOf(datePicker.getValue());
 		String date = makeDateFormat(strDate);
@@ -282,6 +299,12 @@ public class Controller {
 	}
 	
 	@FXML
+	void calculateAllTuitions(ActionEvent e) {
+		roster.getAllTuitions();
+		textArea3.appendText("Calculation Completed");
+	}
+	
+	@FXML
 	void print(ActionEvent e) {
 		textArea3.clear();
 		String[] students = roster.print();
@@ -323,84 +346,7 @@ public class Controller {
 		}
 	}
 	
-	
-	@FXML
-	public void resDisableOtherButtons() {
-		rbTristate.setDisable(true);
-		rbNewYork.setDisable(true);
-		rbConnecticut.setDisable(true);
-		rbStudyAbroad.setDisable(true);
-	}
-	
-	@FXML
-	public void nonResDisableOtherButtons() {
-		rbTristate.setDisable(false);
-		rbNewYork.setDisable(false);
-		rbConnecticut.setDisable(false);
-		rbStudyAbroad.setDisable(true);
-	}
-	
-	@FXML
-	public void internationalDisableOtherButtons() {
-		rbTristate.setDisable(true);
-		rbNewYork.setDisable(true);
-		rbConnecticut.setDisable(true);
-		rbStudyAbroad.setDisable(false);
-	}
-	
-	@FXML
-	public void clearStatus() {
-		rbResident.setSelected(false);
-		rbNonResident.setSelected(false);
-		rbTristate.setSelected(false);
-		rbInternational.setSelected(false);
-		rbNewYork.setSelected(false);
-		rbConnecticut.setSelected(false);
-		
-		
-		rbTristate.setDisable(false);
-		rbNewYork.setDisable(false);
-		rbConnecticut.setDisable(false);
-		rbStudyAbroad.setDisable(false);
-		
-	}
-	
-	public void clearMajor() {
-		rbCS.setSelected(false);
-		rbIT.setSelected(false);
-		rbBA.setSelected(false);
-		rbME.setSelected(false);
-		rbEE.setSelected(false);
-		
-		rbCS2.setSelected(false);
-		rbIT2.setSelected(false);
-		rbBA2.setSelected(false);
-		rbME2.setSelected(false);
-		rbEE2.setSelected(false);
-		
-	}
-	
-	
-	public boolean checkValidCredits(int credits) {
-		
-		if (credits < 3) {
-			textArea.appendText("Minimum credits is 3" + "\n");
-			return false;
-		}
-		
-		if (credits < 12 && rbInternational.isSelected()) {
-			textArea.appendText("International students must be full time" + "\n");
-			return false;
-		}
-		
-		if (credits > 24) {
-			textArea.appendText("Maximum credits is 24" + "\n");
-			return false;
-		}
-		
-		return true;
-	}
-	
+
 	@FXML
 	public Resident makeNewResident() {
 		Profile profile = new Profile();
@@ -429,7 +375,7 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea.appendText("Must select major");
+				textArea.appendText("Must select major \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
@@ -567,6 +513,7 @@ public class Controller {
 		boolean isFullTime = (creds < MINFULLTIME) ? false : true;
 		double tuitionDue = 0;
 		String state = null;
+		System.out.println("hello");
 		if (rbNewYork.isSelected()) {
 			state = "NY";
 		} else if (rbConnecticut.isSelected()) {
@@ -756,6 +703,83 @@ public class Controller {
 		
 		
 		return month + "/" + day + "/" + year;
+	}
+	
+	public boolean checkValidCredits(int credits) {
+		
+		if (credits < 3) {
+			textArea.appendText("Minimum credits is 3" + "\n");
+			return false;
+		}
+		
+		if (credits < 12 && rbInternational.isSelected()) {
+			textArea.appendText("International students must be full time" + "\n");
+			return false;
+		}
+		
+		if (credits > 24) {
+			textArea.appendText("Maximum credits is 24" + "\n");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	@FXML
+	public void resDisableOtherButtons() {
+		rbTristate.setDisable(true);
+		rbNewYork.setDisable(true);
+		rbConnecticut.setDisable(true);
+		rbStudyAbroad.setDisable(true);
+	}
+	
+	@FXML
+	public void nonResDisableOtherButtons() {
+		rbTristate.setDisable(false);
+		rbNewYork.setDisable(false);
+		rbConnecticut.setDisable(false);
+		rbStudyAbroad.setDisable(true);
+	}
+	
+	@FXML
+	public void internationalDisableOtherButtons() {
+		rbTristate.setDisable(true);
+		rbNewYork.setDisable(true);
+		rbConnecticut.setDisable(true);
+		rbStudyAbroad.setDisable(false);
+	}
+	
+	@FXML
+	public void clearStatus() {
+		rbResident.setSelected(false);
+		rbNonResident.setSelected(false);
+		rbTristate.setSelected(false);
+		rbInternational.setSelected(false);
+		rbNewYork.setSelected(false);
+		rbConnecticut.setSelected(false);
+		
+		
+		rbTristate.setDisable(false);
+		rbNewYork.setDisable(false);
+		rbConnecticut.setDisable(false);
+		rbStudyAbroad.setDisable(false);
+		
+	}
+	
+	public void clearMajor() {
+		rbCS.setSelected(false);
+		rbIT.setSelected(false);
+		rbBA.setSelected(false);
+		rbME.setSelected(false);
+		rbEE.setSelected(false);
+		
+		rbCS2.setSelected(false);
+		rbIT2.setSelected(false);
+		rbBA2.setSelected(false);
+		rbME2.setSelected(false);
+		rbEE2.setSelected(false);
+		
 	}
 	
 }
