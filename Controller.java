@@ -1,7 +1,12 @@
 package application;
 
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -21,6 +26,7 @@ public class Controller {
 		roster.setStudents(newRoster);
 	}
 	
+
 	//makeRoster();
 	
 	@FXML
@@ -60,19 +66,74 @@ public class Controller {
 	private RadioButton rbIT;
 	
 	@FXML
+	private RadioButton rbBA2;
+	
+	@FXML
+	private RadioButton rbCS2;
+	
+	@FXML
+	private RadioButton rbEE2;
+	
+	@FXML
+	private RadioButton rbME2;
+	
+	@FXML
+	private RadioButton rbIT2;
+	
+	@FXML
 	private RadioButton rbBA;
 	
 	@FXML
 	private TextField student_name;
 	
+    @FXML
+    private TextField financialAidAmt;
+	
+	@FXML
+	private TextField payment_student_name;
+	
 	@FXML
 	private TextArea textArea;
 	
+    @FXML
+    private TextArea textArea2;
+    
+    @FXML
+    private MenuItem btnPrint;
+
+    @FXML
+    private MenuItem btnPrintDate;
+
+    @FXML
+    private MenuItem btnPrintName; 
+    
+    @FXML
+    private TextArea textArea3;
+	
 	@FXML
-	private ToggleGroup major;
+	private ToggleGroup group_major;
 	
 	@FXML
 	private TextField noCredits;
+	
+	@FXML
+	private TextField amountPaid;
+	
+	@FXML
+	private DatePicker datePicker;
+	
+    @FXML
+    private Button btnPay;
+    
+    @FXML
+    private Button btnSetAmt;
+    
+    @FXML
+    private Button btnRemove;
+    
+    @FXML
+    private Button btnEdit;
+	
 	
 	private boolean firstTime = true;
 	
@@ -82,34 +143,186 @@ public class Controller {
 			makeRoster();
 			firstTime = false;
 		}
-		boolean creditsValid = checkValidCredits();
+		boolean didWork = false;
 		
 		
-		if (creditsValid) {
 			if (rbResident.isSelected()) {
 				Resident newResident = makeNewResident();
-				addStudent(newResident, false, roster);
-				rbResident.setSelected(false);
+				if (newResident != null) {
+					addStudent(newResident, false, roster);
+					didWork = true;
+				}
 			} else if (rbNonResident.isSelected()) {
-				Nonresident newNonresident = makeNewNonresident();
-				addStudent(newNonresident, false, roster);
-			} else if (rbTristate.isSelected()) {
-				Tristate newTristate = makeNewTristate();
-				addStudent(newTristate, false, roster);
-		}
+				if (rbTristate.isSelected()) {
+					Tristate newTristate = makeNewTristate();
+					if (newTristate != null) {
+						addStudent(newTristate, false, roster);
+						didWork = true;
+					}
+				} else {
+					Nonresident newNonresident = makeNewNonresident();
+					if (newNonresident != null) {
+						addStudent(newNonresident, false, roster);
+						didWork = true;
+					}
+				}
+			} else if (rbInternational.isSelected()) {
+				International newInternational = makeNewInternational();
+				if (newInternational != null) {
+					addStudent(newInternational,false,roster);
+					didWork = true;
+				}
+			}
 		
-		} else {
-			textArea.appendText("student not successfully added, please try again \n");
+		if (didWork == true) {
+			student_name.clear();
+			noCredits.clear();
+			clearStatus();
+			clearMajor();
 		}
-		
-		student_name.clear();
-		noCredits.clear();
 	}
 	
 	@FXML
 	void remove(ActionEvent event) {
+		Profile profile = makeNewProfileTab1();
+		Student student= new Student(profile);
+		boolean didWork = roster.remove(student);
+		if (didWork) {
+			textArea.appendText("Student removed \n");
+		} else {
+			textArea.appendText("Student not found \n");
+		}
 		
+		if (didWork) {
+			student_name.clear();
+			noCredits.clear();
+			clearStatus();
+			clearMajor();
+		}
 	}
+	
+	@FXML
+	void updateInternational(ActionEvent event) {
+		Profile profile = makeNewProfileTab1();
+		Student student = new Student(profile);
+		International foundInternational = roster.getInternational(student);
+		if (foundInternational != null) {
+			foundInternational.setIsStudyAbroad(true);
+			textArea.appendText("International student updated. \n");
+			student_name.clear();
+			noCredits.clear();
+			clearStatus();
+			clearMajor();
+			return;
+		} else {
+			textArea.appendText("International Student not found. \n");
+			return;
+		}
+	}
+	
+	@FXML
+	void pay(ActionEvent event) {
+		
+		Profile profile = makeNewProfileTab2();
+		Double amtPaid = Double.parseDouble(amountPaid.getText());
+		
+		String strDate = String.valueOf(datePicker.getValue());
+		String date = makeDateFormat(strDate);
+		Date newDate = new Date(date);
+				
+		Student newStudent = new Student(profile);
+		Student foundStudent = roster.giveStudent(newStudent);
+		if (foundStudent.getTuitionDue() >= amtPaid) {
+			foundStudent.setTuitionDue(foundStudent.getTuitionDue() - amtPaid);
+		} else {
+			textArea2.appendText("Payment exceeds tuition due. \n");
+			return;
+		}
+		
+		if (newDate.isValid()) {
+			foundStudent.setDatePaid(newDate);
+			textArea2.appendText("Tuition updated. \n");
+			clearMajor();
+			payment_student_name.clear();
+			amountPaid.clear();
+			return;
+		} else {
+			textArea2.appendText("invalid date. \n");
+			return;
+		}
+
+	}
+	
+	@FXML
+	void updateFinancialAid(ActionEvent event) {
+		Profile profile = makeNewProfileTab2();
+		Student newStudent = new Student(profile);
+		Student foundStudent = roster.giveStudent(newStudent);
+		if (!(foundStudent instanceof Resident)) {
+			textArea2.appendText("Non-resident student does not qualify for financial aid.");
+			return;
+		}
+		if (!foundStudent.getIsFullTime()) {
+			textArea2.appendText("Parttime student doesn't quality for financial aid");
+			return;
+		}
+		if (foundStudent.getDidFinancialAid() != 0) {
+			textArea2.appendText("Awarded once already.");
+			return;
+		}
+		double finAid = Integer.parseInt(financialAidAmt.getText());
+		if (finAid < 0 || finAid > 10000) {
+			textArea2.appendText("Financial aid value invalid.");
+			return;
+		}
+		foundStudent.setTuitionDue(foundStudent.getTuitionDue() - finAid);
+		foundStudent.setDidFinancialAid(finAid);;
+		textArea2.appendText("Financial aid applied.");
+		return;
+	}
+	
+	@FXML
+	void print(ActionEvent e) {
+		textArea3.clear();
+		String[] students = roster.print();
+		
+		for (int i = 0; i < roster.getSize() + 2; i++) {
+			
+			if (students[i] != null) {
+				textArea3.appendText(students[i] + "\n");
+			}
+			
+		}
+	}
+	
+	@FXML
+	void printByName(ActionEvent e) {
+		textArea3.clear();
+		String[] students = roster.printByName();
+		
+		for (int i = 0; i < roster.getSize() + 2; i++) {
+			
+			if (students[i] != null) {
+				textArea3.appendText(students[i] + "\n");
+			}
+			
+		}
+	}
+	
+	@FXML
+	void printByDate(ActionEvent e) {
+		textArea3.clear();
+		String[] students = roster.printByPaymentDate();
+		
+		for (int i = 0; i < students.length; i++) {
+			
+			if (students[i] != null) {
+				textArea3.appendText(students[i] + "\n");
+			}
+			
+		}
+	}
+	
 	
 	@FXML
 	public void resDisableOtherButtons() {
@@ -150,35 +363,42 @@ public class Controller {
 		rbConnecticut.setDisable(false);
 		rbStudyAbroad.setDisable(false);
 		
+	}
+	
+	public void clearMajor() {
+		rbCS.setSelected(false);
+		rbIT.setSelected(false);
+		rbBA.setSelected(false);
+		rbME.setSelected(false);
+		rbEE.setSelected(false);
+		
+		rbCS2.setSelected(false);
+		rbIT2.setSelected(false);
+		rbBA2.setSelected(false);
+		rbME2.setSelected(false);
+		rbEE2.setSelected(false);
 		
 	}
 	
-	@FXML
-	public boolean checkValidCredits() {
-		int creds = 0;
-		try {
-			creds = Integer.parseInt(noCredits.getText());
-		} catch(NullPointerException e) {
-			
-		}
+	
+	public boolean checkValidCredits(int credits) {
 		
-		if (creds < 3) {
+		if (credits < 3) {
 			textArea.appendText("Minimum credits is 3" + "\n");
 			return false;
 		}
 		
-		if (creds < 12 && rbInternational.isSelected()) {
+		if (credits < 12 && rbInternational.isSelected()) {
 			textArea.appendText("International students must be full time" + "\n");
 			return false;
 		}
 		
-		if (creds > 24) {
+		if (credits > 24) {
 			textArea.appendText("Maximum credits is 24" + "\n");
 			return false;
 		}
 		
 		return true;
-		
 	}
 	
 	@FXML
@@ -191,7 +411,8 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			
+			textArea.appendText("please input student name");
+			return null;
 		}
 		
 		
@@ -208,7 +429,8 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea.appendText("Must selected major");
+				textArea.appendText("Must select major");
+				return null;
 			}
 		} catch(NullPointerException e) {
 			
@@ -219,8 +441,12 @@ public class Controller {
 		int creds = 0;
 		try {
 			creds = Integer.parseInt(noCredits.getText());
-		} catch(NullPointerException e) {
-			
+			if (!checkValidCredits(creds)) {
+				return null;
+			} 
+		} catch(NumberFormatException nef) {
+			textArea.appendText("please input an integer as the number of credits \n");
+			return null;
 		}
 		
 		boolean isFullTime = (creds < MINFULLTIME) ? false : true;
@@ -242,7 +468,8 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			
+			textArea.appendText("please enter name");
+			return null;
 		}
 		
 		
@@ -260,6 +487,7 @@ public class Controller {
 				major = Major.valueOf("IT");
 			} else {
 				textArea.appendText("Must selected major");
+				return null;
 			}
 		} catch(NullPointerException e) {
 			
@@ -270,8 +498,12 @@ public class Controller {
 		int creds = 0;
 		try {
 			creds = Integer.parseInt(noCredits.getText());
-		} catch(NullPointerException e) {
-			
+			if (!checkValidCredits(creds)) {
+				return null;
+			} 
+		} catch(NumberFormatException nef) {
+			textArea.appendText("please input an integer as the number of credits \n");
+			return null;
 		}
 		
 		boolean isFullTime = (creds < MINFULLTIME) ? false : true;
@@ -280,6 +512,7 @@ public class Controller {
 		newNonresident.setTuitionDue(newNonresident.getTuitionDue());
 		newNonresident.tuitionDue();
 		return newNonresident;
+		
 		
 	}
 	
@@ -293,7 +526,8 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			
+			textArea.appendText("please enter name");
+			return null;
 		}
 		
 		
@@ -311,9 +545,10 @@ public class Controller {
 				major = Major.valueOf("IT");
 			} else {
 				textArea.appendText("Must selected major");
+				return null;
 			}
 		} catch(NullPointerException e) {
-			
+			return null;
 		}
 		
 		profile.setMajor(major);
@@ -321,8 +556,12 @@ public class Controller {
 		int creds = 0;
 		try {
 			creds = Integer.parseInt(noCredits.getText());
-		} catch(NullPointerException e) {
-			
+			if (!checkValidCredits(creds)) {
+				return null;
+			} 
+		} catch(NumberFormatException nef) {
+			textArea.appendText("please input an integer as the number of credits \n");
+			return null;
 		}
 		
 		boolean isFullTime = (creds < MINFULLTIME) ? false : true;
@@ -333,17 +572,82 @@ public class Controller {
 		} else if (rbConnecticut.isSelected()) {
 			state = "CT";
 		} else {
-			textArea.appendText("Tristate student must be from NY or CT");
+			textArea.appendText("Tristate student must be from NY or CT \n");
+			return null;
 		}
-		Tristate newTristate = new Tristate(profile, isFullTime, creds, tuitionDue,state);
+		Tristate newTristate = new Tristate(profile, isFullTime, creds, tuitionDue, state);
 		newTristate.setTuitionDue(newTristate.getTuitionDue());
 		newTristate.tuitionDue();
 		return newTristate;
 		
 	}
 	
+	@FXML 
+	public International makeNewInternational() {
+		Profile profile = new Profile();
+		
+		String name= null;
+		
+		try {
+			name = student_name.getText();
+			profile.setName(name);
+		} catch(NullPointerException e) {
+			textArea.appendText("please enter name");
+			return null;
+		}
+		
+		
+		Major major = null;
+		try {
+			if (rbCS.isSelected()) {
+				major = Major.valueOf("CS");
+			} else if (rbBA.isSelected()) {
+				major = Major.valueOf("BA");
+			} else if (rbEE.isSelected()) {
+				major = Major.valueOf("EE");
+			} else if (rbME.isSelected()) {
+				major = Major.valueOf("ME");
+			} else if (rbIT.isSelected()) {
+				major = Major.valueOf("IT");
+			} else {
+				textArea.appendText("Must selected major");
+				return null;
+			}
+		} catch(NullPointerException e) {
+			return null;
+		}
+		
+		profile.setMajor(major);
+		
+		int creds = 0;
+		try {
+			creds = Integer.parseInt(noCredits.getText());
+			if (!checkValidCredits(creds)) {
+				return null;
+			} 
+		} catch(NumberFormatException nef) {
+			textArea.appendText("please input an integer as the number of credits \n");
+			return null;
+		}
+		
+		boolean isFullTime = (creds < MINFULLTIME) ? false : true;
+		double tuitionDue = 0;
+		boolean isStudyAbroad = false;
+		if (rbStudyAbroad.isSelected()) {
+			isStudyAbroad = true;
+			
+			if (creds > 12) {
+				textArea.appendText("International students studying abroad may not enroll in more than 12 credits.");
+				return null;
+			}
+		}
+		International newInternational= new International(profile, isFullTime, creds, tuitionDue, isStudyAbroad);
+		newInternational.setTuitionDue(newInternational.getTuitionDue());
+		newInternational.tuitionDue();
+		return newInternational;
+	}
+	
 	public void addStudent(Student student, boolean worked, Roster roster) {
-		System.out.println(student.getProfile());
 			try {
 				worked = roster.add(student);
 			   
@@ -355,9 +659,103 @@ public class Controller {
 			   }
 				
 			} catch(NullPointerException e) {
-				 System.out.println("hello");
 			 }
 	}
 	
-
+	public Profile makeNewProfileTab1() {
+		Profile profile = new Profile();
+		String name= null;
+		try {
+			name = student_name.getText();
+			profile.setName(name);
+		} catch(NullPointerException e) {
+			textArea2.appendText("please input student name");
+			return null;
+		}
+		
+		Major major = null;
+		try {
+			if (rbCS.isSelected()) {
+				major = Major.valueOf("CS");
+			} else if (rbBA.isSelected()) {
+				major = Major.valueOf("BA");
+			} else if (rbEE.isSelected()) {
+				major = Major.valueOf("EE");
+			} else if (rbME.isSelected()) {
+				major = Major.valueOf("ME");
+			} else if (rbIT.isSelected()) {
+				major = Major.valueOf("IT");
+			} else {
+				textArea2.appendText("Must select major");
+				return null;
+			}
+		} catch(NullPointerException e) {
+			
+		}
+		
+		profile.setMajor(major);
+		
+		return profile;
+	}
+	public Profile makeNewProfileTab2() {
+		Profile profile = new Profile();
+		String name= null;
+		try {
+			name = payment_student_name.getText();
+			profile.setName(name);
+		} catch(NullPointerException e) {
+			textArea2.appendText("please input student name");
+			return null;
+		}
+		
+		Major major = null;
+		try {
+			if (rbCS2.isSelected()) {
+				major = Major.valueOf("CS");
+			} else if (rbBA2.isSelected()) {
+				major = Major.valueOf("BA");
+			} else if (rbEE2.isSelected()) {
+				major = Major.valueOf("EE");
+			} else if (rbME2.isSelected()) {
+				major = Major.valueOf("ME");
+			} else if (rbIT2.isSelected()) {
+				major = Major.valueOf("IT");
+			} else {
+				textArea2.appendText("Must select major");
+				return null;
+			}
+		} catch(NullPointerException e) {
+			
+		}
+		
+		profile.setMajor(major);
+		
+		return profile;
+	}
+	
+	public String makeDateFormat(String strDate) {
+		String year = null;
+		String month = null;
+		String day = null;
+		
+		char charYear[] = new char[4];
+		for (int i = 0; i < 4; i++) {
+			charYear[i] = strDate.charAt(i);
+			year = String.valueOf(charYear);
+		}
+		char charMonth[] = new char[2];
+		for (int i = 5; i < 7; i++) {
+			charMonth[i-5] = strDate.charAt(i);
+			month = String.valueOf(charMonth);
+		}
+		char charDay[] = new char[2];
+		for (int i = 8; i < 10; i++) {
+			charDay[i-8] = strDate.charAt(i);
+			day = String.valueOf(charDay);
+		}
+		
+		
+		return month + "/" + day + "/" + year;
+	}
+	
 }
