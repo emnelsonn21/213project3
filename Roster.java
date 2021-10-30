@@ -69,6 +69,121 @@ public class Roster {
 	@return true if student is not in albums array, false otherwise
 	@author Emily Nelson
 	*/
+	public boolean add(Student student) {
+		if (find(student) != -1) {
+			return false; //student already found, have to throw error !
+		}
+		
+		if ((size != 0) && (size % 4 == 0)) {
+			grow();
+		}
+		
+		int index = findEmptySpot();
+		roster[index] = student;
+		size++;
+		return true;
+	}
+	
+	/**
+	Checks if a student can be removed from the Student array
+	Removes student from Student array if student is found
+	Does nothing if the student is not in Student array
+	@param student the student that is to be removed
+	@return true if student is in Student array, false otherwise
+	@author Emily Nelson
+	*/
+	public boolean remove(Student student) {
+		if (find(student) == -1) {
+			return false;
+		}
+		
+		int index = find(student);
+		roster[index] = null;
+		size--;
+		
+		if (index < roster.length - 1) {
+			 while (index < roster.length - 1) { 
+				 roster[index] = roster[index + 1];
+				 index++;
+			 }
+			 
+			 roster[index] = null;
+		}
+		
+		return true;
+	}
+	
+	/**
+	Displays the students in the Student array without specifying the order
+	@author Cristofer Gomez-Martinez
+	*/
+	public String[] print() {
+		String[] students = new String[size + 2];
+		if (roster[0] == null) {
+			students[0] = "Student roster is empty! \n";
+			return students;
+			
+		}
+		
+		students[0] = "* list of students **";
+		for (int i = 1; i < size + 1; i++) {
+			students[i] = roster[i-1].toString();
+		}
+		
+		students[size + 1] = "* end of roster **";
+		
+		return students;
+		
+	}
+	/**
+	Displays the students in the Student array sorted by student names
+	@author Cristofer Gomez-Martinez
+	*/
+	public String[] printByName() {
+		String[] students = new String[size + 2];
+		   if (roster[0] == null) {
+			   students[0] = "Student roster is empty! \n";
+			   return students;
+	    	}
+		   
+		   else {
+
+	     	   students[0] = "* list of students ordered by name **";
+	     	   
+	     	   Student[] sortedRoster = new Student[size];
+	     	   
+	     	   for(int i = 0; i < size; i++) {
+	    			sortedRoster[i] = roster[i];
+	     	   }
+	     	  
+	     	   
+	     	   //sort
+	     	   for(int i= 0; i < size; i++) {
+	     		   for(int j = i + 1; j < size; j++) {
+	     			   if((sortedRoster[j].getProfile().getName().compareTo(sortedRoster[i].getProfile().getName())) < 0){
+	     				   Student temp = sortedRoster[i];
+	     				   sortedRoster[i] = sortedRoster[j];
+	     				   sortedRoster[j] = temp;
+	     			   }
+	     		   }
+	     	   }
+
+	     	   for (int i = 1; i < size + 1; i++) {
+	     		   students[i] = sortedRoster[i-1].toString();
+	     	   }
+	     	   
+
+	     	   students[size + 1] = "* end of roster **";
+	     	   
+	     	   return students;
+	     	   
+	     	   }
+		}
+	
+	/**
+	Displays the students who have made payments in the Student array ordered by payment date
+	@author Cristofer Gomez-Martinez
+	*/
 	public String[] printByPaymentDate() {
 		String[] students = new String[size + 2];
 		   if (roster[0] == null) {
