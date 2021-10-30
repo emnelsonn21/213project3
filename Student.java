@@ -20,7 +20,7 @@ public class Student {
 	private boolean isFullTime;
 	private int creditHours;
 	private double tuitionDue = 0;
-	private Date datePaid = new Date();
+	private Date datePaid = new Date("00/00/0000");
 	double originalTuition = 0;
 	private double didFinancialAid = 0;
 	
