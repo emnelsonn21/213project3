@@ -270,7 +270,7 @@ public class Controller {
 		Profile profile = makeNewProfileTab2();
 		Double amtPaid = Double.parseDouble(amountPaid.getText());
 		if (amtPaid < 0) {
-			textArea2.appendText("Payment cannot be negative.");
+			textArea2.appendText("Payment cannot be negative. \n");
 			return;
 		}
 		
