@@ -70,7 +70,10 @@ public class International extends Nonresident {
 	@Override
 	public String toString() {
 		String str = super.toString();
-		return str + "International";
+		if (!isStudyAbroad) {
+			return str + "International";
+		}
+		return str + ":International:" + "Study Abroad";
 	}
 	
 	/**
