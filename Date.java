@@ -92,8 +92,17 @@ It contains the methods that check if a user-inputted date is valid and that com
 			return false;
 		}
 		
-		if (year < THIS_YEAR || year > THIS_YEAR) {
-			return false;
+		if (year == THIS_YEAR) {
+			Date todaysDate = new Date();
+			if (month == todaysDate.month) {
+				if (day > todaysDate.day) {
+					return false;
+				}
+			}
+			if (month > todaysDate.month) {
+				return false;
+			}
+			
 		}
 		
 		if (year == THIS_YEAR) {
