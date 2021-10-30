@@ -234,7 +234,7 @@ public class Roster {
      		   }
     	   }
      	   
-     	  for (int i = 1; i < size + 1; i++) {
+     	  for (int i = 1; i < size; i++) {
     		   students[i] = sortedRoster[i-1].toString();
     	   }
     	   
