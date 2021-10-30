@@ -82,7 +82,7 @@ public class Tristate extends Nonresident {
 	@Override
 	public String toString() {
 		String str = super.toString();
-		return str + "Tristate";
+		return str + " (Tristate): " + state;
 	}
 	
 	/**
