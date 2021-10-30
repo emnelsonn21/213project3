@@ -44,6 +44,9 @@ It contains the methods that check if a user-inputted date is valid and that com
 	*/
 	public Date() {
 		Calendar today = Calendar.getInstance();
+		year = today.get(Calendar.YEAR);
+		month = today.get(Calendar.MONTH) + 1;
+		day = today.get(Calendar.DATE);
 	}
 	
 	/** 
@@ -93,6 +96,14 @@ It contains the methods that check if a user-inputted date is valid and that com
 			return false;
 		}
 		
+		if (year == THIS_YEAR) {
+			Date todaysDate = new Date();
+			System.out.println("month is " + month + " day is " + day);
+			System.out.println("today's month is " + todaysDate.month + " today's date is " + todaysDate.day);
+			if (month >= todaysDate.month && day > todaysDate.day) {
+				return false;
+			}
+		}
 		
 		
 		if (month == APR || month == JUNE || month == SEPT || month == NOV) {
