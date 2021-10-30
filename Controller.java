@@ -811,6 +811,10 @@ public class Controller {
 	 */
 	public boolean checkValidCredits(int credits) {
 		
+		if (credits < 0 ) {
+			textArea.appendText("Credit hours cannot be negative. \n");
+			return false;
+		}
 		if (credits < 3) {
 			textArea.appendText("Minimum credits is 3" + "\n");
 			return false;
