@@ -102,7 +102,7 @@ public class Roster {
 		size--;
 		
 		if (index < roster.length - 1) {
-			 while (index < roster.length - 2) { //length is 5 highest index is 4
+			 while (index < roster.length - 1) { 
 				 roster[index] = roster[index + 1];
 				 index++;
 			 }
