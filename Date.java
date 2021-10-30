@@ -98,8 +98,6 @@ It contains the methods that check if a user-inputted date is valid and that com
 		
 		if (year == THIS_YEAR) {
 			Date todaysDate = new Date();
-			System.out.println("month is " + month + " day is " + day);
-			System.out.println("today's month is " + todaysDate.month + " today's date is " + todaysDate.day);
 			if (month >= todaysDate.month && day > todaysDate.day) {
 				return false;
 			}
