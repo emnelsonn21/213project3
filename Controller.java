@@ -246,7 +246,13 @@ public class Controller {
 		Student student = new Student(profile);
 		International foundInternational = roster.getInternational(student);
 		if (foundInternational != null) {
+			if (foundInternational.getCreditHours() > 12) {
+				textArea.appendText("International students studying abroad may not enroll in more than 12 credits. \n");
+				return;
+			}
+			foundInternational.setChanged(true);
 			foundInternational.setIsStudyAbroad(true);
+			foundInternational.tuitionDue();
 			textArea.appendText("International student updated. \n");
 			student_name.clear();
 			noCredits.clear();
