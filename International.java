@@ -6,6 +6,7 @@ This class defines the type International, which is an extenstion of Nonresident
 public class International extends Nonresident {
 
 	private boolean isStudyAbroad; 
+	private boolean changed;
 	
 	/**
 	Constructor for an International student
@@ -17,9 +18,10 @@ public class International extends Nonresident {
 	@param isStudyAbroad sets the student to studying abroad or not
 	@author Emily Nelson
 	*/  
-	public International(Profile profile, boolean isFullTime, int creditHours, double tuitionDue, boolean isStudyAbroad) {
+	public International(Profile profile, boolean isFullTime, int creditHours, double tuitionDue, boolean isStudyAbroad, boolean changed) {
 		super(profile, isFullTime, creditHours, tuitionDue);
 		this.isStudyAbroad = isStudyAbroad;
+		this.changed = changed;
 	}
 	
 	public static final int FULL_TIME_TUITION = 29737;
@@ -53,6 +55,12 @@ public class International extends Nonresident {
 		if (this.getTuitionDue() == 0) {
 			this.setTuitionDue(tuition);
 			this.originalTuition = tuition;
+		}
+		
+		if (changed == true) {
+			double alreadyPaid = this.originalTuition - this.getTuitionDue();
+			this.setTuitionDue(tuition - alreadyPaid);
+			changed = false;
 		}
 		
 		if (this.getDidFinancialAid() != 0) {
@@ -92,6 +100,10 @@ public class International extends Nonresident {
 	*/
 	public void setIsStudyAbroad(boolean isStudyAbroad) {
 		this.isStudyAbroad = isStudyAbroad;
+	}
+	
+	public void setChanged(boolean changed) {
+		this.changed = changed;
 	}
 
 
