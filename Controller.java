@@ -668,7 +668,8 @@ public class Controller {
 				return null;
 			}
 		}
-		International newInternational= new International(profile, isFullTime, creds, tuitionDue, isStudyAbroad);
+		boolean changed = false;
+		International newInternational= new International(profile, isFullTime, creds, tuitionDue, isStudyAbroad, changed);
 		newInternational.setTuitionDue(newInternational.getTuitionDue());
 		newInternational.tuitionDue();
 		return newInternational;
