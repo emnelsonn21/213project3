@@ -105,14 +105,6 @@ It contains the methods that check if a user-inputted date is valid and that com
 			
 		}
 		
-		if (year == THIS_YEAR) {
-			Date todaysDate = new Date();
-			if (month >= todaysDate.month && day > todaysDate.day) {
-				return false;
-			}
-		}
-		
-		
 		if (month == APR || month == JUNE || month == SEPT || month == NOV) {
 			if (day > 30) {
 				return false;
