@@ -119,7 +119,7 @@ public class Roster {
 	*/
 	public String[] print() {
 		String[] students = new String[size + 2];
-		if (roster[0] == null) {
+		if (roster == null || roster[0] == null) {
 			students[0] = "Student roster is empty! \n";
 			return students;
 			
@@ -141,7 +141,7 @@ public class Roster {
 	*/
 	public String[] printByName() {
 		String[] students = new String[size + 2];
-		   if (roster[0] == null) {
+		   if (roster == null || roster[0] == null) {
 			   students[0] = "Student roster is empty! \n";
 			   return students;
 	    	}
@@ -186,7 +186,7 @@ public class Roster {
 	*/
 	public String[] printByPaymentDate() {
 		String[] students = new String[size + 2];
-		   if (roster[0] == null) {
+		   if (roster == null || roster[0] == null) {
 			   students[0] = "Student roster is empty! \n";
 			   return students;
 	    	}
@@ -208,7 +208,6 @@ public class Roster {
      			}
      	   }
      	   
-     	   System.out.println("student payments is " + studentPayments);
      	   
      	   //make new array with only students that made payments
      	   Student[] sortedRoster = new Student[studentPayments];
