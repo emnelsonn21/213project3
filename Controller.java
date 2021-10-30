@@ -312,25 +312,25 @@ public class Controller {
 		Student newStudent = new Student(profile);
 		Student foundStudent = roster.giveStudent(newStudent);
 		if (!(foundStudent instanceof Resident)) {
-			textArea2.appendText("Non-resident student does not qualify for financial aid.");
+			textArea2.appendText("Non-resident student does not qualify for financial aid. \n");
 			return;
 		}
 		if (!foundStudent.getIsFullTime()) {
-			textArea2.appendText("Parttime student doesn't quality for financial aid");
+			textArea2.appendText("Parttime student doesn't quality for financial aid \n");
 			return;
 		}
 		if (foundStudent.getDidFinancialAid() != 0) {
-			textArea2.appendText("Awarded once already.");
+			textArea2.appendText("Awarded once already. \n");
 			return;
 		}
 		double finAid = Double.parseDouble(financialAidAmt.getText());
 		if (finAid < 0 || finAid > 10000) {
-			textArea2.appendText("Financial aid value invalid.");
+			textArea2.appendText("Financial aid value invalid. \n");
 			return;
 		}
 		foundStudent.setTuitionDue(foundStudent.getTuitionDue() - finAid);
 		foundStudent.setDidFinancialAid(finAid);;
-		textArea2.appendText("Financial aid applied.");
+		textArea2.appendText("Financial aid applied. \n");
 		return;
 	}
 	
