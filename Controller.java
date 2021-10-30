@@ -270,7 +270,7 @@ public class Controller {
 		Profile profile = makeNewProfileTab2();
 		Double amtPaid = Double.parseDouble(amountPaid.getText());
 		if (amtPaid < 0) {
-			textArea2.appendText("Payment cannot be negative.");
+			textArea2.appendText("Payment cannot be negative. \n");
 			return;
 		}
 		
@@ -312,25 +312,25 @@ public class Controller {
 		Student newStudent = new Student(profile);
 		Student foundStudent = roster.giveStudent(newStudent);
 		if (!(foundStudent instanceof Resident)) {
-			textArea2.appendText("Non-resident student does not qualify for financial aid.");
+			textArea2.appendText("Non-resident student does not qualify for financial aid. \n");
 			return;
 		}
 		if (!foundStudent.getIsFullTime()) {
-			textArea2.appendText("Parttime student doesn't quality for financial aid");
+			textArea2.appendText("Parttime student doesn't quality for financial aid. \n");
 			return;
 		}
 		if (foundStudent.getDidFinancialAid() != 0) {
-			textArea2.appendText("Awarded once already.");
+			textArea2.appendText("Awarded once already. \n");
 			return;
 		}
 		double finAid = Integer.parseInt(financialAidAmt.getText());
 		if (finAid < 0 || finAid > 10000) {
-			textArea2.appendText("Financial aid value invalid.");
+			textArea2.appendText("Financial aid value invalid. \n");
 			return;
 		}
 		foundStudent.setTuitionDue(foundStudent.getTuitionDue() - finAid);
 		foundStudent.setDidFinancialAid(finAid);;
-		textArea2.appendText("Financial aid applied.");
+		textArea2.appendText("Financial aid applied. \n");
 		return;
 	}
 	
@@ -342,7 +342,7 @@ public class Controller {
 	@FXML
 	void calculateAllTuitions(ActionEvent e) {
 		roster.getAllTuitions();
-		textArea3.appendText("Calculation Completed");
+		textArea3.appendText("Calculation Completed \n");
 	}
 	
 	/**
@@ -417,7 +417,7 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			textArea.appendText("please input student name");
+			textArea.appendText("please input student name \n");
 			return null;
 		}
 		
@@ -479,7 +479,7 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			textArea.appendText("please enter name");
+			textArea.appendText("please enter name \n");
 			return null;
 		}
 		
@@ -497,7 +497,7 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea.appendText("Must selected major");
+				textArea.appendText("Must select major \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
@@ -542,7 +542,7 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			textArea.appendText("please enter name");
+			textArea.appendText("please enter name \n");
 			return null;
 		}
 		
@@ -560,7 +560,7 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea.appendText("Must selected major");
+				textArea.appendText("Must select major \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
@@ -583,7 +583,6 @@ public class Controller {
 		boolean isFullTime = (creds < MINFULLTIME) ? false : true;
 		double tuitionDue = 0;
 		String state = null;
-		System.out.println("hello");
 		if (rbNewYork.isSelected()) {
 			state = "NY";
 		} else if (rbConnecticut.isSelected()) {
@@ -614,7 +613,7 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			textArea.appendText("please enter name");
+			textArea.appendText("please enter name \n");
 			return null;
 		}
 		
@@ -632,7 +631,7 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea.appendText("Must selected major");
+				textArea.appendText("Must select major \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
@@ -659,7 +658,7 @@ public class Controller {
 			isStudyAbroad = true;
 			
 			if (creds > 12) {
-				textArea.appendText("International students studying abroad may not enroll in more than 12 credits.");
+				textArea.appendText("International students studying abroad may not enroll in more than 12 credits. \n");
 				return null;
 			}
 		}
@@ -703,7 +702,7 @@ public class Controller {
 			name = student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			textArea2.appendText("please input student name");
+			textArea2.appendText("please input student name \n");
 			return null;
 		}
 		
@@ -720,7 +719,7 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea2.appendText("Must select major");
+				textArea2.appendText("Must select major \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
@@ -744,7 +743,7 @@ public class Controller {
 			name = payment_student_name.getText();
 			profile.setName(name);
 		} catch(NullPointerException e) {
-			textArea2.appendText("please input student name");
+			textArea2.appendText("please input student name \n");
 			return null;
 		}
 		
@@ -761,7 +760,7 @@ public class Controller {
 			} else if (rbIT2.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea2.appendText("Must select major");
+				textArea2.appendText("Must select major  \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
