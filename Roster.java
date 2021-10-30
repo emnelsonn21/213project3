@@ -191,7 +191,7 @@ public class Roster {
 	    	}
 	    else {
 
-	    	students[0] = "* list of students ordered by name **";
+	    	students[0] = "* list of students ordered by payment date **";
      	   
      	   //check how many students have made payments
      	   int studentPayments = 0;
