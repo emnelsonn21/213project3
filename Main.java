@@ -6,7 +6,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+This class contains the main method that runs the software
+@author Emily Nelson, Cristofer Gomez-Martinez
+*/
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
