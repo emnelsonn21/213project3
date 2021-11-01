@@ -284,15 +284,21 @@ public class Controller {
 	void pay(ActionEvent event) {
 		
 		Profile profile = makeNewProfileTab2();
-		Double amtPaid = Double.parseDouble(amountPaid.getText());
+		
+		if(profile == null) {
+			return;
+		}
 		
 		if(amountPaid.getText() == "") {
 			textArea2.appendText("Payment amount missing. \n");
 			return;
 		}
 		
+		Double amtPaid = Double.parseDouble(amountPaid.getText());
+		
 		if (amtPaid == 0) {
 			textArea2.appendText("Invalid amount. \n");
+			return;
 		}
 		if (amtPaid < 0) {
 			textArea2.appendText("Payment cannot be negative. \n");
