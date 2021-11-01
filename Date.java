@@ -105,6 +105,10 @@ It contains the methods that check if a user-inputted date is valid and that com
 			
 		}
 		
+		if(year < THIS_YEAR || year > THIS_YEAR) {
+			return false;
+		}
+		
 		if (month == APR || month == JUNE || month == SEPT || month == NOV) {
 			if (day > 30) {
 				return false;
