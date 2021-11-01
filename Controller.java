@@ -309,11 +309,16 @@ public class Controller {
 			textArea2.appendText("Student not found. \n");
 			return;
 		}
-		if (foundStudent.getTuitionDue() >= amtPaid) {
-			foundStudent.setTuitionDue(foundStudent.getTuitionDue() - amtPaid);
+		
+		if (newDate.isValid()) {
+			if (foundStudent.getTuitionDue() >= amtPaid) {
+				foundStudent.setTuitionDue(foundStudent.getTuitionDue() - amtPaid);
+			} else {
+				textArea2.appendText("Payment exceeds tuition due. \n");
+				return;
+			}
 		} else {
-			textArea2.appendText("Payment exceeds tuition due. \n");
-			return;
+			textArea2.appendText("Invalid Date. \n");
 		}
 		
 		if (newDate.isValid()) {
