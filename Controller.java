@@ -470,12 +470,12 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
 		
-		name = student_name.getText();
+		name = student_name.getText().trim();
 		profile.setName(name);
 		
 		
@@ -532,12 +532,12 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
 		
-		name = student_name.getText();
+		name = student_name.getText().trim();
 		profile.setName(name);
 		
 		
@@ -595,12 +595,12 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
 		
-		name = student_name.getText();
+		name = student_name.getText().trim();
 		profile.setName(name);
 		
 		
@@ -666,12 +666,12 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
 		
-		name = student_name.getText();
+		name = student_name.getText().trim;
 		profile.setName(name);
 		
 		
@@ -757,12 +757,12 @@ public class Controller {
 		Profile profile = new Profile();
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
 		
-		name = student_name.getText();
+		name = student_name.getText().trim();
 		profile.setName(name);
 		
 		Major major = null;
@@ -799,12 +799,12 @@ public class Controller {
 		Profile profile = new Profile();
 		String name= null;
 		
-		if(payment_student_name.getText() == "") {
+		if(payment_student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea2.appendText("please input student name \n");
 			return null;
 		}
 		
-		name = payment_student_name.getText();
+		name = payment_student_name.getText().trim();
 		profile.setName(name);
 		
 		Major major = null;
