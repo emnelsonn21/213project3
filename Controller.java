@@ -470,7 +470,7 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
@@ -532,7 +532,7 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
@@ -595,7 +595,7 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
@@ -666,7 +666,7 @@ public class Controller {
 		
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
@@ -757,7 +757,7 @@ public class Controller {
 		Profile profile = new Profile();
 		String name= null;
 		
-		if(student_name.getText() == "") {
+		if(student_name.getText() == "" || student_name.getText().trim() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
@@ -799,7 +799,7 @@ public class Controller {
 		Profile profile = new Profile();
 		String name= null;
 		
-		if(payment_student_name.getText() == "") {
+		if(payment_student_name.getText() == "" || payment_student_name.getText().trim() == "") {
 			textArea2.appendText("please input student name \n");
 			return null;
 		}
