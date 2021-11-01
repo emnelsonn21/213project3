@@ -219,6 +219,11 @@ public class Controller {
 	@FXML
 	void remove(ActionEvent event) {
 		Profile profile = makeNewProfileTab1();
+		
+		if(profile == null) {
+			return;
+		}
+		
 		Student student= new Student(profile);
 		boolean didWork = roster.remove(student);
 		if (didWork) {
@@ -243,6 +248,11 @@ public class Controller {
 	@FXML
 	void updateInternational(ActionEvent event) {
 		Profile profile = makeNewProfileTab1();
+		
+		if(profile == null) {
+			return;
+		}
+		
 		Student student = new Student(profile);
 		International foundInternational = roster.getInternational(student);
 		if (foundInternational != null) {
@@ -274,24 +284,36 @@ public class Controller {
 	void pay(ActionEvent event) {
 		
 		Profile profile = makeNewProfileTab2();
+		
+		if(profile == null) {
+			return;
+		}
+		
+		if(amountPaid.getText() == "") {
+			textArea2.appendText("Payment amount missing. \n");
+			return;
+		}
+		
 		Double amtPaid = Double.parseDouble(amountPaid.getText());
-		if (amtPaid < 0) {
-			textArea2.appendText("Payment cannot be negative. \n");
+		if (amtPaid <= 0) {
+			textArea2.appendText("Invalid amount. \n");
 			return;
 		}
 		
 		String strDate = String.valueOf(datePicker.getValue());
 		String date = makeDateFormat(strDate);
 		Date newDate = new Date(date);
-				
+		
 		Student newStudent = new Student(profile);
 		Student foundStudent = roster.giveStudent(newStudent);
-		if (foundStudent.getTuitionDue() >= amtPaid) {
+		if (foundStudent.getTuitionDue() >= amtPaid && newDate.isValid()) {
 			foundStudent.setTuitionDue(foundStudent.getTuitionDue() - amtPaid);
-		} else {
+		} else if (foundStudent.getTuitionDue() < amtPaid){
 			textArea2.appendText("Payment exceeds tuition due. \n");
 			return;
 		}
+		
+				
 		
 		if (newDate.isValid()) {
 			foundStudent.setDatePaid(newDate);
@@ -317,12 +339,27 @@ public class Controller {
 		Profile profile = makeNewProfileTab2();
 		Student newStudent = new Student(profile);
 		Student foundStudent = roster.giveStudent(newStudent);
+		
+		if(profile == null) {
+			return;
+		}
+		
+		if(foundStudent == null) {
+			textArea2.appendText("Student not in the roster. \n");
+			return;
+		}
+		
+		if(financialAidAmt.getText() == "") {
+			textArea2.appendText("Missing the amount. \n");
+			return;
+		}
+		
 		if (!(foundStudent instanceof Resident)) {
 			textArea2.appendText("Non-resident student does not qualify for financial aid. \n");
 			return;
 		}
 		if (!foundStudent.getIsFullTime()) {
-			textArea2.appendText("Parttime student doesn't quality for financial aid \n");
+			textArea2.appendText("Parttime student doesn't qualify for financial aid \n");
 			return;
 		}
 		if (foundStudent.getDidFinancialAid() != 0) {
@@ -330,7 +367,7 @@ public class Controller {
 			return;
 		}
 		double finAid = Double.parseDouble(financialAidAmt.getText());
-		if (finAid < 0 || finAid > 10000) {
+		if (finAid <= 0 || finAid > 10000) {
 			textArea2.appendText("Financial aid value invalid. \n");
 			return;
 		}
@@ -419,13 +456,13 @@ public class Controller {
 		
 		String name= null;
 		
-		try {
-			name = student_name.getText();
-			profile.setName(name);
-		} catch(NullPointerException e) {
+		if(student_name.getText() == "") {
 			textArea.appendText("please input student name \n");
 			return null;
 		}
+		
+		name = student_name.getText();
+		profile.setName(name);
 		
 		
 		Major major = null;
@@ -481,13 +518,13 @@ public class Controller {
 		
 		String name= null;
 		
-		try {
-			name = student_name.getText();
-			profile.setName(name);
-		} catch(NullPointerException e) {
-			textArea.appendText("please enter name \n");
+		if(student_name.getText() == "") {
+			textArea.appendText("please input student name \n");
 			return null;
 		}
+		
+		name = student_name.getText();
+		profile.setName(name);
 		
 		
 		Major major = null;
@@ -544,13 +581,13 @@ public class Controller {
 		
 		String name= null;
 		
-		try {
-			name = student_name.getText();
-			profile.setName(name);
-		} catch(NullPointerException e) {
-			textArea.appendText("please enter name \n");
+		if(student_name.getText() == "") {
+			textArea.appendText("please input student name \n");
 			return null;
 		}
+		
+		name = student_name.getText();
+		profile.setName(name);
 		
 		
 		Major major = null;
@@ -615,13 +652,13 @@ public class Controller {
 		
 		String name= null;
 		
-		try {
-			name = student_name.getText();
-			profile.setName(name);
-		} catch(NullPointerException e) {
-			textArea.appendText("please enter name \n");
+		if(student_name.getText() == "") {
+			textArea.appendText("please input student name \n");
 			return null;
 		}
+		
+		name = student_name.getText();
+		profile.setName(name);
 		
 		
 		Major major = null;
@@ -705,13 +742,14 @@ public class Controller {
 	public Profile makeNewProfileTab1() {
 		Profile profile = new Profile();
 		String name= null;
-		try {
-			name = student_name.getText();
-			profile.setName(name);
-		} catch(NullPointerException e) {
-			textArea2.appendText("please input student name \n");
+		
+		if(student_name.getText() == "") {
+			textArea.appendText("please input student name \n");
 			return null;
 		}
+		
+		name = student_name.getText();
+		profile.setName(name);
 		
 		Major major = null;
 		try {
@@ -726,7 +764,7 @@ public class Controller {
 			} else if (rbIT.isSelected()) {
 				major = Major.valueOf("IT");
 			} else {
-				textArea2.appendText("Must select major \n");
+				textArea.appendText("Must select major \n");
 				return null;
 			}
 		} catch(NullPointerException e) {
@@ -746,13 +784,14 @@ public class Controller {
 	public Profile makeNewProfileTab2() {
 		Profile profile = new Profile();
 		String name= null;
-		try {
-			name = payment_student_name.getText();
-			profile.setName(name);
-		} catch(NullPointerException e) {
+		
+		if(payment_student_name.getText() == "") {
 			textArea2.appendText("please input student name \n");
 			return null;
 		}
+		
+		name = payment_student_name.getText();
+		profile.setName(name);
 		
 		Major major = null;
 		try {
