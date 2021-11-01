@@ -285,6 +285,15 @@ public class Controller {
 		
 		Profile profile = makeNewProfileTab2();
 		Double amtPaid = Double.parseDouble(amountPaid.getText());
+		
+		if(amountPaid.getText() == "") {
+			textArea2.appendText("Payment amount missing. \n");
+			return;
+		}
+		
+		if (amtPaid == 0) {
+			textArea2.appendText("Invalid amount. \n");
+		}
 		if (amtPaid < 0) {
 			textArea2.appendText("Payment cannot be negative. \n");
 			return;
