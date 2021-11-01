@@ -207,7 +207,11 @@ public class Roster {
      				studentPayments++;
      			}
      	   }
-     	   
+		    
+     	   if(studentPayments == 0) {
+     		  students[0] = "There are no students that have made payments! \n";
+		  return students;
+     	   }
      	   
      	   //make new array with only students that made payments
      	   Student[] sortedRoster = new Student[studentPayments];
