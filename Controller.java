@@ -284,36 +284,28 @@ public class Controller {
 	void pay(ActionEvent event) {
 		
 		Profile profile = makeNewProfileTab2();
-		
-		if(profile == null) {
-			return;
-		}
-		
-		if(amountPaid.getText() == "") {
-			textArea2.appendText("Payment amount missing. \n");
-			return;
-		}
-		
 		Double amtPaid = Double.parseDouble(amountPaid.getText());
-		if (amtPaid <= 0) {
-			textArea2.appendText("Invalid amount. \n");
+		if (amtPaid < 0) {
+			textArea2.appendText("Payment cannot be negative. \n");
 			return;
 		}
 		
 		String strDate = String.valueOf(datePicker.getValue());
 		String date = makeDateFormat(strDate);
 		Date newDate = new Date(date);
-		
+				
 		Student newStudent = new Student(profile);
 		Student foundStudent = roster.giveStudent(newStudent);
-		if (foundStudent.getTuitionDue() >= amtPaid && newDate.isValid()) {
+		if (foundStudent == null) {
+			textArea2.appendText("Student not found. \n");
+			return;
+		}
+		if (foundStudent.getTuitionDue() >= amtPaid) {
 			foundStudent.setTuitionDue(foundStudent.getTuitionDue() - amtPaid);
-		} else if (foundStudent.getTuitionDue() < amtPaid){
+		} else {
 			textArea2.appendText("Payment exceeds tuition due. \n");
 			return;
 		}
-		
-				
 		
 		if (newDate.isValid()) {
 			foundStudent.setDatePaid(newDate);
