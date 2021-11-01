@@ -392,6 +392,12 @@ public class Controller {
 	 */
 	@FXML
 	void calculateAllTuitions(ActionEvent e) {
+		
+		if(roster.getSize() == 0) {
+			textArea3.appendText("Student roster is empty! \n");
+			return;
+		}
+		
 		roster.getAllTuitions();
 		textArea3.appendText("Calculation Completed \n");
 	}
