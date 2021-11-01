@@ -313,6 +313,12 @@ public class Controller {
 		if (newDate.isValid()) {
 			if (foundStudent.getTuitionDue() >= amtPaid) {
 				foundStudent.setTuitionDue(foundStudent.getTuitionDue() - amtPaid);
+				foundStudent.setDatePaid(newDate);
+				textArea2.appendText("Tuition updated. \n");
+				clearMajor();
+				payment_student_name.clear();
+				amountPaid.clear();
+				return;
 			} else {
 				textArea2.appendText("Payment exceeds tuition due. \n");
 				return;
@@ -321,17 +327,7 @@ public class Controller {
 			textArea2.appendText("Invalid Date. \n");
 		}
 		
-		if (newDate.isValid()) {
-			foundStudent.setDatePaid(newDate);
-			textArea2.appendText("Tuition updated. \n");
-			clearMajor();
-			payment_student_name.clear();
-			amountPaid.clear();
-			return;
-		} else {
-			textArea2.appendText("invalid date. \n");
-			return;
-		}
+
 
 	}
 	
