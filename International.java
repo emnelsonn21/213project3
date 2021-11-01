@@ -60,6 +60,7 @@ public class International extends Nonresident {
 		if (changed == true) {
 			double alreadyPaid = this.originalTuition - this.getTuitionDue();
 			this.setTuitionDue(tuition - alreadyPaid);
+			this.originalTuition = this.getTuitionDue();
 			changed = false;
 		}
 		
