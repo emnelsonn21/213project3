@@ -379,6 +379,10 @@ public class Controller {
 			textArea2.appendText("Financial aid value invalid. \n");
 			return;
 		}
+		if(foundStudent.getTuitionDue() < finAid) {
+			textArea2.appendText("Financial aid exceeds tuition due. \n");
+			return;
+		}
 		foundStudent.setTuitionDue(foundStudent.getTuitionDue() - finAid);
 		foundStudent.setDidFinancialAid(finAid);;
 		textArea2.appendText("Financial aid applied. \n");
